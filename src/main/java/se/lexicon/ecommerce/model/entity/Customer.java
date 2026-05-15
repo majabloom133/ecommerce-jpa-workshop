@@ -22,7 +22,15 @@ public class Customer {
     // The date the user joined
     private LocalDate registrationDate;
 
+    // Link this customer to one specific address
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
 
+    // Link this customer to one specific user profile.
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_profile_id")
+    private UserProfile userProfile;
 
 
 }
