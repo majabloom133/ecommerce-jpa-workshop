@@ -47,4 +47,10 @@ public class Customer {
     @JoinColumn(name = "profile_id")
     private UserProfile userProfile;
 
+    // Method that runs automatically right before object is saved to DB
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Instant.now();
+    }
+
 }
