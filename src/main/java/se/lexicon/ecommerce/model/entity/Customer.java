@@ -4,10 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.Instant;
-import java.time.LocalDate;
 
+@Entity
+@Table(name = "customers")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
     @Id
@@ -31,5 +34,17 @@ public class Customer {
     @Column(nullable = false)
     private Instant createdAt;
 
+    // Unindirectional relation to Address
+    // Mandatory FK, cascades save/delete, removes address if disconnected
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "address_id", nullable = false)
+    private Address address;
+
+
+    // Bidirectional relation to UserProfile (owner side)
+    // Cascades save/delete, removes profile if disconnected
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "profile_id")
+    private UserProfile userProfile;
 
 }
