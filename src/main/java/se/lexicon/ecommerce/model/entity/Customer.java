@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 public class Customer {
@@ -14,23 +15,21 @@ public class Customer {
     // Unique ID for each customer
     private Long id;
 
-    // Nullable means an email must be entered.
-    // @Column makes sure noone has the same email address
-    @Column(unique = true, nullable = false)
+    // First name - mandatory, max 100 characters
+    @Column(nullable = false, length = 100)
+    private String firstName;
+
+    // Last name - mandatory, max 100 characters
+    @Column(nullable = false, length = 100)
+    private String lastName;
+
+    // Email - mandatory, unique and max 150 characters
+    @Column(nullable = false, unique = true, length = 150)
     private String email;
 
-    // The date the user joined
-    private LocalDate registrationDate;
-
-    // Link this customer to one specific address
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
-    private Address address;
-
-    // Link this customer to one specific user profile.
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_profile_id")
-    private UserProfile userProfile;
+    // The timestamp when customer was created
+    @Column(nullable = false)
+    private Instant createdAt;
 
 
 }
