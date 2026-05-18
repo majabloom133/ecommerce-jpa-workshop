@@ -35,7 +35,7 @@ public class UserProfile {
     private String bio;
 
     // Link back to Customer (Inverse side of bidirectional relationship)
-    @OneToOne(mappedBy = "userProfile")
+    @OneToOne(mappedBy = "profile")
     private Customer customer;
 
     // I'll add fields here in next step

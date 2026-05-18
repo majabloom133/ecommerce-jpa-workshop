@@ -17,8 +17,20 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     // Find customers living in a specific city (JPA jumps to the Address table for this)
     List<Customer> findByAddressCity(String city);
 
+    // Find customers whose email contains a specific keyword (like 'gmail')
+    List<Customer> findByEmailContaining(String keyword);
+
+    // Find customers created after a specific date
+    List <Customer> findByCreatedAtAfter(Instant date);
+
     // Find customers created between 2 dates
     List<Customer> findByCreatedAtBetween(Instant start, Instant end);
+
+    // Count how many customers live in a specific city
+    long countByAddressCity(String city);
+
+    // Check if an email is already taken
+    boolean existsByEmail(String email);
 
 
 }

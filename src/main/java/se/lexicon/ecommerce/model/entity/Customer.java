@@ -18,20 +18,20 @@ public class Customer {
     // Unique ID for each customer
     private Long id;
 
-    // First name - mandatory, max 100 characters
-    @Column(nullable = false, length = 100)
+    // First name - is mandatory, max 100 characters
+    @Column(nullable = false, name = "first_name", length = 100)
     private String firstName;
 
     // Last name - mandatory, max 100 characters
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, name = "last_name", length = 100)
     private String lastName;
 
     // Email - mandatory, unique and max 150 characters
     @Column(nullable = false, unique = true, length = 150)
     private String email;
 
-    // The timestamp when customer was created
-    @Column(nullable = false)
+    // The timestamp when customer record was created
+    @Column(nullable = false, name = "created_at")
     private Instant createdAt;
 
     // Unindirectional relation to Address
@@ -45,7 +45,7 @@ public class Customer {
     // Cascades save/delete, removes profile if disconnected
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "profile_id")
-    private UserProfile userProfile;
+    private UserProfile profile;
 
     // Method that runs automatically right before object is saved to DB
     @PrePersist
