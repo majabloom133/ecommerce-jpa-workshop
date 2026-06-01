@@ -7,6 +7,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import java.math.BigDecimal;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "order_items")
@@ -19,6 +22,10 @@ public class OrderItem {
 
     @Column(name = "price_at_purchase")
     private BigDecimal priceAtPurchase;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     // --- Getters & Setters ---
 
@@ -45,4 +52,13 @@ public class OrderItem {
     public void setPriceAtPurchase(BigDecimal priceAtPurchase) {
         this.priceAtPurchase = priceAtPurchase;
     }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
 }
