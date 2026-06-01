@@ -13,8 +13,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinTable;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 @Entity // Tells JPA this class represents DB table
 @Table(name = "products")
@@ -34,6 +38,14 @@ public class Product {
     @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "image_url")
     private List<String> imageUrls = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY) // Defines a many-to-many relationship loaded only when requested
+    @JoinTable(
+            name = "products_promotions", // Names DB bridge table "products_promotions"
+            joinColumns = @JoinColumn(name = "product_id"), // Connects this table to the product's ID column
+            inverseJoinColumns = @JoinColumn(name = "promotion_id") // Connects this table to the promotion's ID column
+    )
+    private Set<Promotion> promotions = new HashSet<>();
 
     // --- Getters & Setters ---
 
@@ -75,6 +87,15 @@ public class Product {
 
     public void setImageUrls(List<String> imageUrls) {
         this.imageUrls = imageUrls;
+    }
+
+
+    public Set<Promotion> getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(Set<Promotion> promotions) {
+        this.promotions = promotions;
     }
 
 
