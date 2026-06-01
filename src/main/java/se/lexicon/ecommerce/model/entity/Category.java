@@ -5,6 +5,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.FetchType;
+import java.util.List;
+import java.util.ArrayList;
 
 
 @Entity // Tells JPA that this class represents a table in the DB
@@ -18,6 +22,8 @@ public class Category {
 
     private String name; // Holds name of category (like "Electronics" or "Books")
 
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private List<Product> products = new ArrayList<>();
 
     // --- GETTERS & SETTERS ---
     // Methods used to get and set fields in the object.
@@ -43,7 +49,13 @@ public class Category {
         this.name = name;
     }
 
+public List<Product> getProducts() {
+        return products;
+}
 
+public void setProducts(List<Product> products) {
+        this.products = products;
+}
 
 
 }
