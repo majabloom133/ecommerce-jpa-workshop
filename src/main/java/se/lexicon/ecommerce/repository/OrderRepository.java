@@ -1,4 +1,4 @@
-package se.lexicon.ecommerce.model.repository;
+package se.lexicon.ecommerce.repository;
 
 import se.lexicon.ecommerce.model.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;

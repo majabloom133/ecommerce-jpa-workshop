@@ -1,4 +1,4 @@
-package se.lexicon.ecommerce.model.repository;
+package se.lexicon.ecommerce.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import se.lexicon.ecommerce.model.entity.Customer;
