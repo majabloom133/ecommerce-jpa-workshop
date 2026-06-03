@@ -35,7 +35,7 @@ public class ProductRepositoryTest {
         // Create laptop product
         Product laptop = new Product();
         laptop.setName("Laptop");
-        laptop.setPrice(new BigDecimal("500.00"));
+        laptop.setPrice(new BigDecimal("12000.00"));
         laptop.setCategory(electronics);
         productRepository.save(laptop);
 
@@ -46,5 +46,21 @@ public class ProductRepositoryTest {
         mouse.setCategory(electronics); // Connect to category
         productRepository.save(mouse);
     }
+
+    @Test
+    public void testFindByCategoryNameIgnoreCase() {
+        // Find products using the category name
+        List<Product> products = productRepository.findByCategoryNameIgnoreCase("electronics");
+        assertEquals(2, products.size()); // Finds laptop and mouse
+    }
+
+    @Test
+    public void testFindByPriceBetween() {
+        // find products inside a specific price range
+        List<Product> cheapProducts = productRepository.findByPriceBetween(new BigDecimal("100.00"), new BigDecimal("1000.00"));
+        assertEquals(1, cheapProducts.size()); // only the mouse matches
+        assertEquals("Mouse", cheapProducts.get(0).getName()); // check if name is correct
+    }
+
 
 }
