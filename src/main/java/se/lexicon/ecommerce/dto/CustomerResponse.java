@@ -3,7 +3,7 @@ package se.lexicon.ecommerce.dto;
 // Import timestamp class for creation dates
 import java.time.Instant;
 
-public record CustomerRespons(
+public record CustomerResponse(
         // Unique identifier for the customer from the DB
         Long id,
         // Combined first and last name into full name string
