@@ -3,6 +3,8 @@ package se.lexicon.ecommerce.service.impl;
 import se.lexicon.ecommerce.dto.OrderRequest;
 import se.lexicon.ecommerce.dto.OrderResponse;
 import se.lexicon.ecommerce.mapper.OrderMapper;
+import se.lexicon.ecommerce.model.entity.Order;
+import se.lexicon.ecommerce.model.entity.OrderStatus;
 import se.lexicon.ecommerce.repository.CustomerRepository;
 import se.lexicon.ecommerce.repository.OrderRepository;
 import se.lexicon.ecommerce.repository.ProductRepository;
@@ -41,7 +43,20 @@ public class OrderServiceImpl implements OrderService {
         se.lexicon.ecommerce.model.entity.Customer customer = customerRepository.findById(request.customerId())
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found with ID: " + request.customerId()));
 
-        // Temporary return - until products are mapped + order is created
+        // Create new order entity + populate basic fields
+        se.lexicon.ecommerce.model.entity.Order order = new se.lexicon.ecommerce.model.entity.Order();
+
+        // Generate a unique order number (using UUID as quick standard solution)
+        order.setOrderNumber(java.util.UUID.randomUUID().toString());
+
+        // Set creation timestamp + initial status
+        order.setCreatedAt(java.time.LocalDateTime.now());
+        order.setStatus(OrderStatus.CREATED);
+
+        // Link validated customer to this order
+        order.setCustomer(customer);
+
+        // Temporary return until process order items and save
         return null;
     }
 
