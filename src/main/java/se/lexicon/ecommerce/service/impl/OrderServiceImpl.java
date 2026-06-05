@@ -31,7 +31,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderResponse placeOrder(OrderRequest request) {
-        // TODO: Implement order placement logic step-by-step
+
+        // Validate that incoming request isn't null
+        if (request == null) {
+            throw new IllegalArgumentException("Order request cannot be null");
+        }
+
+        // Fetch customer from DB or throw exception if not found
+        se.lexicon.ecommerce.model.entity.Customer customer = customerRepository.findById(request.customerId())
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found with ID: " + request.customerId()));
+
+        // Temporary return - until products are mapped + order is created
         return null;
     }
 
