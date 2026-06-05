@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// Spring component for dependency injection
 @Component
 public class OrderMapper {
 
@@ -26,7 +27,31 @@ public class OrderMapper {
         }
 
         // Temporary return
-
         return null;
     }
+
+    // Helper method to map individual order items
+    private OrderItemResponse toItemResponse(OrderItem item) {
+        if (item == null) {
+            return  null;
+        }
+
+        Long productId = null;
+        String productName = null;
+
+        // Safe check to get product details
+        if (item.getProduct() != null) {
+            productId = item.getProduct().getId();
+            productName = item.getProduct().getName();
+        }
+
+        return new OrderItemResponse(
+                item.getId(),
+                productId,
+                productName,
+                item.getQuantity(),
+                item.getPriceAtPurchase()
+        );
+    }
+
 }
