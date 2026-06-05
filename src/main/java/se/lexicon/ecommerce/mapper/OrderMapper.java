@@ -26,8 +26,20 @@ public class OrderMapper {
             customerId = entity.getCustomer().getId();
         }
 
-        // Temporary return
-        return null;
+        List<OrderItemResponse> itemResponses = new ArrayList<>();
+        if (entity.getOrderItems() != null) {
+            itemResponses = entity.getOrderItems().stream()
+                    .map(this::toItemResponse)
+                    .collect(Collectors.toList());
+        }
+
+        return new OrderResponse(
+                entity.getId(),
+                customerId,
+                entity.getCreatedAt(),
+                entity.getStatus(),
+                itemResponses
+        );
     }
 
     // Helper method to map individual order items
