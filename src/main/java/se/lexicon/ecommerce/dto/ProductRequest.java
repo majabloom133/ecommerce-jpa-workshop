@@ -15,10 +15,6 @@ public record ProductRequest(
         @NotBlank(message = "Product name is required")
         String name,
 
-        // Validate description isn't blank
-        @NotBlank(message = "Description is required")
-        String description,
-
         // Validate price isn't null + larger than 0
         @NotNull(message = "Price is required")
         @Positive(message = "Price must be greater than 0")

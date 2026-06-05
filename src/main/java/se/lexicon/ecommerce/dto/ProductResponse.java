@@ -10,9 +10,6 @@ public record ProductResponse(
         // Name of product
         String name,
 
-        // Description of product
-        String description,
-
         // Product price
         BigDecimal price,
 
