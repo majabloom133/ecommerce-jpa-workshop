@@ -56,8 +56,32 @@ public class OrderServiceImpl implements OrderService {
         // Link validated customer to this order
         order.setCustomer(customer);
 
-        // Temporary return until process order items and save
-        return null;
-    }
+        // Process each item request from the incoming order request
+        if (request.items() != null) {
+            for (se.lexicon.ecommerce.dto.OrderItemRequest itemRequest : request.items()) {
 
+                // Fetch product from DB to verify it exists + fet current price
+                se.lexicon.ecommerce.model.entity.Product product = productRepository.findById(itemRequest.productId())
+                        .orElseThrow(() -> new IllegalArgumentException("Product not found with ID: " + itemRequest.productId()));
+
+                // Create new OrderItem entity for this line
+                se.lexicon.ecommerce.model.entity.OrderItem orderItem = new se.lexicon.ecommerce.model.entity.OrderItem();
+                orderItem.setProduct(product);
+                orderItem.setQuantity(itemRequest.quantity());
+                // Uses current product price
+                orderItem.setPriceAtPurchase(product.getPrice());
+                // Explicitly link this item to main order
+                orderItem.setOrder(order);
+
+                // Add item to order's internal list
+                order.getOrderItems().add(orderItem);
+            }
+        }
+        // Save entire order - cascades will automatically save all the order items
+        se.lexicon.ecommerce.model.entity.Order savedOrder = orderRepository.save(order);
+
+        // Convert saved entity to response record and return
+        return orderMapper.toResponse(savedOrder);
+
+    }
 }
