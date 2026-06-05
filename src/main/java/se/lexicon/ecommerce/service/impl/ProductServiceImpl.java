@@ -11,6 +11,7 @@ import se.lexicon.ecommerce.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import se.lexicon.ecommerce.service.ProductService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public ProductResponse create(ProductRequest request) {
         Category category = categoryRepository.findById(request.categoryId())
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + request.categoryId()));
@@ -46,6 +48,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
         @Override
+        @Transactional(readOnly = true)
         public List<ProductResponse> findAll () {
             return productRepository.findAll()
                     .stream()
@@ -54,6 +57,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         @Override
+        @Transactional(readOnly = true)
         public List<ProductResponse> searchByName (String name){
             return productRepository.findByCategoryNameIgnoreCase(name)
                     .stream()

@@ -1,11 +1,12 @@
 package se.lexicon.ecommerce.service.impl;
 
+import org.springframework.transaction.annotation.Transactional;
 import se.lexicon.ecommerce.dto.CustomerRequest;
 import se.lexicon.ecommerce.dto.CustomerResponse;
 import se.lexicon.ecommerce.exception.ResourceNotFoundException;
 import se.lexicon.ecommerce.mapper.CustomerMapper;
 import se.lexicon.ecommerce.model.entity.Customer;
-import se.lexicon.ecommerce.model.repository.CustomerRepository;
+import se.lexicon.ecommerce.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import se.lexicon.ecommerce.service.CustomerService;
@@ -23,6 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public CustomerResponse register(CustomerRequest request) {
         // Check if email is already taken by another customer
         if (customerRepository.existsByEmail(request.email())) {
@@ -35,6 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CustomerResponse findById(Long id) {
         // Fetch customer from DB or throw custom exception if not found
         Customer customer = customerRepository.findById(id)
@@ -45,6 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public CustomerResponse update(Long id, CustomerRequest request) {
         // Fetch existing customer from DB or throw custom exception
         Customer existingCustomer = customerRepository.findById(id)

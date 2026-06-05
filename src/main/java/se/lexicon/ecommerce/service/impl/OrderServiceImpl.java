@@ -32,6 +32,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @org.springframework.transaction.annotation.Transactional
     public OrderResponse placeOrder(OrderRequest request) {
 
         // Validate that incoming request isn't null
