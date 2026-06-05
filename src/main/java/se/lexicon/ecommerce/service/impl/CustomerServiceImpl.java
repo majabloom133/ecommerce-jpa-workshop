@@ -1,4 +1,4 @@
-package se.lexicon.ecommerce.service;
+package se.lexicon.ecommerce.service.impl;
 
 import se.lexicon.ecommerce.dto.CustomerRequest;
 import se.lexicon.ecommerce.dto.CustomerResponse;
@@ -8,6 +8,7 @@ import se.lexicon.ecommerce.model.entity.Customer;
 import se.lexicon.ecommerce.model.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import se.lexicon.ecommerce.service.CustomerService;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {

@@ -1,7 +1,5 @@
-package se.lexicon.ecommerce.service;
+package se.lexicon.ecommerce.service.impl;
 
-import se.lexicon.ecommerce.dto.CustomerRequest;
-import se.lexicon.ecommerce.dto.CustomerResponse;
 import se.lexicon.ecommerce.dto.ProductRequest;
 import se.lexicon.ecommerce.dto.ProductResponse;
 import se.lexicon.ecommerce.exception.ResourceNotFoundException;
@@ -12,6 +10,7 @@ import se.lexicon.ecommerce.repository.CategoryRepository;
 import se.lexicon.ecommerce.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import se.lexicon.ecommerce.service.ProductService;
 
 import java.util.List;
 import java.util.stream.Collectors;
