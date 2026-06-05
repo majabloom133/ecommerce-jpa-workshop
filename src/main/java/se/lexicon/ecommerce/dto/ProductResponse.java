@@ -16,3 +16,4 @@ public record ProductResponse(
         // Flattened view field containing name of assigned category
         String categoryName
 ) {}
+
