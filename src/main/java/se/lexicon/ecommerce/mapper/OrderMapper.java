@@ -19,6 +19,14 @@ public class OrderMapper {
             return null;
         }
 
+        // Safe check to get customer id without breaking if customer is null
+        Long customerId = null;
+        if (entity.getCustomer() != null) {
+            customerId = entity.getCustomer().getId();
+        }
+
+        // Temporary return
+
         return null;
     }
 }

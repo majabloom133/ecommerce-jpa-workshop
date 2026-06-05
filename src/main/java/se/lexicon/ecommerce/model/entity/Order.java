@@ -9,6 +9,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import java.time.LocalDateTime;
@@ -32,8 +34,13 @@ public class Order {
     @Enumerated(EnumType.STRING) // Saves the enum as a readable string
     private OrderStatus status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
+
     // --- Getters & Setters ---
 
     public Long getId() {
@@ -67,6 +74,10 @@ public class Order {
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
+
+    public Customer getCustomer() { return customer; }
+
+    public void setCustomer(Customer customer) { this.customer = customer; }
 
     public List<OrderItem> getOrderItems() {
         return orderItems;
