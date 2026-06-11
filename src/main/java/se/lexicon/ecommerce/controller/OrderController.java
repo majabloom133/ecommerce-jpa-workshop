@@ -1,5 +1,6 @@
 package se.lexicon.ecommerce.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import se.lexicon.ecommerce.dto.OrderRequest;
 import se.lexicon.ecommerce.dto.OrderResponse;
@@ -21,7 +22,7 @@ public class OrderController {
 
     // Endpoint to handle incoming order placement requests
     @PostMapping
-    public ResponseEntity<OrderResponse> placeOrder(@RequestBody OrderRequest request) {
+    public ResponseEntity<OrderResponse> placeOrder(@Valid @RequestBody OrderRequest request) {
         OrderResponse response = orderService.placeOrder(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
